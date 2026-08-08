@@ -1,6 +1,10 @@
 // Thin wrapper around the backend API.
-// In dev, Vite proxies /api -> http://localhost:4000 (see vite.config.js)
-
+// Local dev: Vite proxies /api -> http://localhost:4000 (see vite.config.js), so
+//            VITE_API_URL can be left unset and BASE just resolves to '/api'.
+// Production (Vercel): set VITE_API_URL to your deployed backend's URL
+//            (e.g. https://pitchdeck-ai-backend.onrender.com) as an env var
+//            in the Vercel project settings. No proxy exists in production.
+const BASE = `${import.meta.env.VITE_API_URL || ''}/api`;
 const BASE = '/api';
 
 async function request(path, options = {}) {
