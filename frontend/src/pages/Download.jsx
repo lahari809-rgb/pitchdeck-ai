@@ -8,10 +8,11 @@ export default function Download() {
   const { flow, reset } = useDeckFlow();
   const navigate = useNavigate();
 
-  function downloadFile(kind) {
-    // The backend exposes GET /api/download?analysisId=...&format=pptx|pdf
-    window.open(`/api/download?analysisId=${flow.analysisId}&format=${kind}`, '_blank');
-  }
+ function downloadFile(kind) {
+  // The backend exposes GET /api/download?analysisId=...&format=pptx|pdf
+  const base = import.meta.env.VITE_API_URL || '';
+  window.open(`${base}/api/download?analysisId=${flow.analysisId}&format=${kind}`, '_blank');
+}
 
   return (
     <AppShell title="Download Your Pitch Deck" subtitle="Your investor-ready deck is generated and payment-verified on Algorand.">
